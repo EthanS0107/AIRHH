@@ -1,20 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./ui/Button";
 
 const navLinks = [
   { label: "Accueil", href: "#hero" },
+  { label: "À propos", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Portfolio", href: "#portfolio" },
-  { label: "À propos", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -35,7 +38,10 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2.5 group">
+        <a
+          href={isHome ? "#hero" : "/"}
+          className="flex items-center gap-2.5 group"
+        >
           <svg
             width="32"
             height="32"
@@ -62,7 +68,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={isHome ? link.href : `/${link.href}`}
                 className="text-sm font-medium text-gray-600 hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all hover:after:w-full"
               >
                 {link.label}
@@ -73,7 +79,7 @@ export default function Navbar() {
 
         {/* CTA desktop */}
         <div className="hidden md:block">
-          <Button href="#contact" size="sm">
+          <Button href={isHome ? "#contact" : "/#contact"} size="sm">
             On discute ?
           </Button>
         </div>
@@ -112,7 +118,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={isHome ? link.href : `/${link.href}`}
                     onClick={() => setMobileOpen(false)}
                     className="text-lg font-medium text-gray-700 hover:text-primary transition-colors"
                   >
@@ -121,7 +127,7 @@ export default function Navbar() {
                 </li>
               ))}
               <li>
-                <Button href="#contact" size="sm">
+                <Button href={isHome ? "#contact" : "/#contact"} size="sm">
                   On discute ?
                 </Button>
               </li>

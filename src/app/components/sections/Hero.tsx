@@ -67,7 +67,7 @@ export default function Hero() {
         >
           {[
             { value: "10+", label: "Clients accompagnés" },
-            { value: "xx%", label: "Satisfaction client" },
+            { value: "90%", label: "Satisfaction client" },
             { value: "3x", label: "Croissance moyenne" },
             { value: "24h", label: "Temps de réponse" },
           ].map((stat, i) => (
@@ -82,15 +82,50 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer group"
+        aria-label="Défiler vers le bas"
       >
-        <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2">
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-        </div>
-      </motion.div>
+        <span className="text-xs font-medium text-gray-400 uppercase tracking-widest group-hover:text-primary transition-colors duration-300">
+          Défiler
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+          className="flex flex-col items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth={2}
+            className="w-7 h-7 stroke-gray-400 group-hover:stroke-primary transition-colors duration-300"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth={2}
+            className="w-7 h-7 -mt-3 stroke-primary/40 group-hover:stroke-primary/70 transition-colors duration-300"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </motion.div>
+      </motion.a>
     </section>
   );
 }

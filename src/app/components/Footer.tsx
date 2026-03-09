@@ -1,5 +1,19 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
+const footerLinks = [
+  { label: "Accueil", href: "#hero" },
+  { label: "À propos", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
+];
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <footer className="bg-gray-950 text-white">
@@ -80,38 +94,16 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-white">Navigation</h4>
             <ul className="space-y-3">
-              <li>
-                <a
-                  href="#hero"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Accueil
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#services"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#portfolio"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Portfolio
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  À propos
-                </a>
-              </li>
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={isHome ? link.href : `/${link.href}`}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -131,16 +123,14 @@ export default function Footer() {
           <p className="text-gray-500 text-sm">
             © {currentYear} AIRHH. Tous droits réservés.
           </p>
-          {/*
           <div className="flex gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">
+            <a
+              href="/mentions-legales"
+              className="hover:text-white transition-colors"
+            >
               Mentions légales
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Politique de confidentialité
-            </a>
           </div>
-          */}
         </div>
       </div>
     </footer>
